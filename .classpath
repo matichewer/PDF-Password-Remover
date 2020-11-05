@@ -2,5 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/org-apache-commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/pdfbox-1.8.16.jar"/>
+	<classpathentry kind="lib" path="lib/bcprov-jdk15to18-166.jar"/>
+	<classpathentry kind="lib" path="lib/fontbox-1.8.16.jar"/>
+	<classpathentry kind="lib" path="lib/jempbox-1.8.16.jar"/>
+	<classpathentry kind="lib" path="lib/preflight-1.8.16.jar"/>
+	<classpathentry kind="lib" path="lib/xmpbox-1.8.16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

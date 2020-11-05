@@ -207,7 +207,7 @@ public class Main {
 	    tabla.setDefaultRenderer(String.class, centerRenderer);  
 	    tabla.setDefaultRenderer(Integer.class, centerRenderer);  
 	    
-	    // seteo tamaño de cada columna
+	    // seteo tamanio de cada columna
 	    tabla.getColumnModel().getColumn(0).setPreferredWidth(30);
 	    tabla.getColumnModel().getColumn(1).setPreferredWidth(300);
 	    tabla.getColumnModel().getColumn(2).setPreferredWidth(200);
@@ -220,7 +220,7 @@ public class Main {
 		        
 		        Tablamodel(){
 		        	super(new String[][] {},
-		        		  new String[]{"Nº", "Archivo", "Estado de clave"});
+		        		  new String[]{"N", "Archivo", "Estado de clave"});
 		        	types = new Class[] {java.lang.Integer.class,
 		        	                     java.lang.String.class, 
 		        	                     java.lang.String.class         	                     
@@ -246,10 +246,10 @@ public class Main {
 	    tabla.setValueAt(estado, fila, 2);
 	}
 	
-	public int cantTotalArchivos(File carpeta, int cant) {
-		for( File f : carpeta.listFiles())
-				
-	}
+//	public int cantTotalArchivos(File carpeta, int cant) {
+//		for( File f : carpeta.listFiles())
+//				
+//	}
 	
 
 	public void recorrerCarpetas(File carpeta) throws IOException {
