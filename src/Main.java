@@ -1,4 +1,5 @@
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -27,6 +28,8 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -39,9 +42,7 @@ import javax.swing.JProgressBar;
 public class Main {
 
 
-	private static LinkedList<File> lista;
-	private static String clave;
-	
+	private static String clave;	
 	private JFrame frame;
 	private JPanel panelOpciones;
 	private JScrollPane panelTabla;
@@ -53,6 +54,8 @@ public class Main {
 	private JTextField txtClave;
 	private JButton btnDesencriptar;
 	private JProgressBar progressBar;
+	private int cantDesencriptados;
+	private int cantEncriptados;
 	
 
 	public static void main(String[] args) {
@@ -69,15 +72,16 @@ public class Main {
 	}
 
 	public Main() {
-		lista = new LinkedList<File>();
 		crearFramePrincipal();		
 		crearPanelOpciones();
 		crearPanelTabla();
 	}
 
 	private void crearFramePrincipal() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 546, 268);
+		frame = new JFrame("PDF  Password  Remover");
+//		frame.setIconImage(null);
+		
+		frame.setBounds(100, 100, 653, 430);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -106,12 +110,8 @@ public class Main {
 			    chooser.setDialogTitle("Elige carpeta");
 			    chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 			    chooser.setAcceptAllFileFilterUsed(false);			    
-			    if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) { 
-			    	System.out.println("getSelectedFile() : "+chooser.getSelectedFile());
-			    	txtRuta.setText(chooser.getSelectedFile().toString());			    	
-			    }
-			    else 
-			    	System.out.println("No Selection ");			      
+			    if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION)
+			    	txtRuta.setText(chooser.getSelectedFile().toString());		      
 			    ventanaChooser.getContentPane().add(chooser);
 			    
 			    
@@ -156,6 +156,13 @@ public class Main {
 			btnDesencriptar = new JButton("Desencriptar");
 			btnDesencriptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					tabla.setAutoCreateRowSorter(true);
+					cantDesencriptados = 0;
+					cantEncriptados = 0;
+					limpiarTabla();
+					habilitarGUI(false);
+					progressBar.setString("Analizando archivos...");
+			    	progressBar.setIndeterminate(true);	
 					new Thread() {
 						public void run() {
 							String ruta = txtRuta.getText();
@@ -173,9 +180,22 @@ public class Main {
 									}
 							} catch (IOException e) {
 								e.printStackTrace();
-							}		
+							}
+							
+							progressBar.setIndeterminate(false);
+							String resultado;
+							if(cantEncriptados==0) 
+								resultado = "Finalizado. No se encontraron PDF's encriptados";
+							else
+								if(cantDesencriptados==0)
+									resultado = "Finalizado. No se ha podido desencriptar ningún PDF.";
+								else
+									resultado = "Finalizado. Se han descencriptado "+cantDesencriptados +" PDF's.";
+							progressBar.setString(resultado);
+							habilitarGUI(true);
+							
 						}					
-				}.start();				
+				}.start();	    
 			}});
 			GridBagConstraints gbc_btnDesencriptar = new GridBagConstraints();
 			gbc_btnDesencriptar.gridwidth = 2;
@@ -186,6 +206,17 @@ public class Main {
 		}
 	}	
 	
+	
+	public void habilitarGUI(boolean estado) {
+		btnDesencriptar.setEnabled(estado);
+		btnRuta.setEnabled(estado);
+		txtClave.setEnabled(estado);
+	}
+	
+	public void limpiarTabla() {
+		while(tablaModel.getRowCount() > 0)
+           tablaModel.removeRow(0);
+	}
 
 
 	public void crearPanelTabla() {
@@ -198,7 +229,10 @@ public class Main {
 	    tabla.setAutoCreateRowSorter(true);	    
 	    {
 	    	progressBar = new JProgressBar();
-	    	frame.getContentPane().add(progressBar, BorderLayout.SOUTH);	    
+	    	frame.getContentPane().add(progressBar, BorderLayout.SOUTH);
+			progressBar.setStringPainted(true);
+			progressBar.setFont(new Font("Dialog", Font.BOLD, 16));
+			progressBar.setString("Esperando para desencriptar...");
 	    }
 	    
 	    // centrar todos los datos de la tabla
@@ -209,8 +243,10 @@ public class Main {
 	    
 	    // seteo tamanio de cada columna
 	    tabla.getColumnModel().getColumn(0).setPreferredWidth(30);
+	    tabla.getColumnModel().getColumn(0).setMaxWidth(44);
 	    tabla.getColumnModel().getColumn(1).setPreferredWidth(300);
-	    tabla.getColumnModel().getColumn(2).setPreferredWidth(200);
+	    tabla.getColumnModel().getColumn(2).setPreferredWidth(130);
+	    tabla.getColumnModel().getColumn(2).setMaxWidth(130);
 	}	
 	
 
@@ -245,12 +281,7 @@ public class Main {
 	    tabla.setValueAt(archivo, fila, 1);
 	    tabla.setValueAt(estado, fila, 2);
 	}
-	
-//	public int cantTotalArchivos(File carpeta, int cant) {
-//		for( File f : carpeta.listFiles())
-//				
-//	}
-	
+		
 
 	public void recorrerCarpetas(File carpeta) throws IOException {
 	    for (File elemento : carpeta.listFiles()) {
@@ -261,7 +292,8 @@ public class Main {
 	            	PDDocument pdf = PDDocument.load(elemento.getAbsolutePath());	            	
 	            	if(pdf.isEncrypted())
 	            		try {
-							removerClave(elemento);							
+	            			cantEncriptados++;
+							removerClave(elemento);
 						} catch (COSVisitorException | IOException | CryptographyException
 								| ArchivoSinClaveException e) {
 							e.printStackTrace();
@@ -282,11 +314,10 @@ public class Main {
 			throw new ArchivoSinClaveException("Error: El archivo ya no tenia clave");
 		else {
 			pdf.setAllSecurityToBeRemoved(true);
-			System.out.println(archivo.toString());
-			System.out.println(clave);
 			pdf.decrypt(clave);
 			File outputFile = new File(archivo.getAbsolutePath());
 			pdf.save(outputFile);
+			cantDesencriptados++;
         	agregarFila(archivo.getName(), "Removida");
 		} 
 		pdf.close();			
