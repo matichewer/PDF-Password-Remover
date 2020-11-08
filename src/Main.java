@@ -188,7 +188,7 @@ public class Main {
 								resultado = "Finalizado. No se encontraron PDF's encriptados";
 							else
 								if(cantDesencriptados==0)
-									resultado = "Finalizado. No se ha podido desencriptar ningún PDF.";
+									resultado = "Finalizado. No se ha podido desencriptar ningun PDF.";
 								else
 									resultado = "Finalizado. Se han descencriptado "+cantDesencriptados +" PDF's.";
 							progressBar.setString(resultado);
