@@ -1,6 +1,6 @@
 # PDF Password Remover
 
-### [English]
+## [English]
 
 #### Operation in files:
 * Select a PDF file
@@ -14,7 +14,7 @@
 * The key will be removed from all of them
 
 
-### [Spanish]
+## [Spanish]
 ##### Funcionamiento en archivos:
 * Selecciona un archivo de tipo PDF
 * Introduce la clave
