@@ -1,5 +1,12 @@
 # PDF Password Remover
 
+![GitHub repo size](https://img.shields.io/github/repo-size/matichewer/PDF-Password-Remover?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/matichewer/PDF-Password-Remover?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/matichewer/PDF-Password-Remover?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/matichewer/PDF-Password-Remover?style=for-the-badge)
+
+
+
 ## [English]
 
 #### Operation in files:
