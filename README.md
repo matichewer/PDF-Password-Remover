@@ -25,3 +25,9 @@
 * Introduce la clave
 * Se buscara recursivamente en todo el contenido de la carpeta y subcarpetas los archivos de tipo PDF que tengan clave
 * Se removerá la clave de todos ellos
+
+---
+
+## Screenshots
+
+# <p align="left"><img src="assets/screenshot-1.png" height="350px"></img></p>
