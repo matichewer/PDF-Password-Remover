@@ -1,10 +1,15 @@
 # PDF Password Remover
+Massively remove passwords from PDF files.
 
-![GitHub repo size](https://img.shields.io/github/repo-size/matichewer/PDF-Password-Remover?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/matichewer/PDF-Password-Remover?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/matichewer/PDF-Password-Remover?style=for-the-badge)
-![GitHub stars](https://img.shields.io/github/stars/matichewer/PDF-Password-Remover?style=for-the-badge)
+## Stats
 
+<p align="center">
+    <a><img src="https://img.shields.io/github/repo-size/matichewer/PDF-Password-Remover?color=blue&style=for-the-badge"></a>    
+    <a href="https://github.com/matichewer/PDF-Password-Remover/contributors"><img src="https://img.shields.io/github/contributors/matichewer/PDF-Password-Remover?color=blue&style=for-the-badge"></a>
+    <a href="https://github.com/matichewer/PDF-Password-Remover/forks"><img src="https://img.shields.io/github/forks/matichewer/PDF-Password-Remover?color=blue&style=for-the-badge"></a>
+    <a href="https://github.com/matichewer/PDF-Password-Remover/stargazers"><img src="https://img.shields.io/github/stars/matichewer/PDF-Password-Remover?color=success&style=for-the-badge"></a>
+    <a href="https://github.com/matichewer/PDF-Password-Remover/issues"><img src="https://img.shields.io/github/issues/matichewer/PDF-Password-Remover?color=red&style=for-the-badge"></a>
+</p>
 
 
 ## [English]
